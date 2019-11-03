@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aaa.mapper.PersonMapper">
+    <select id="selPerson" resultType="person">
+        select*from person
+        <where>
+        <if test="name!=null and name!=''">
+            name like concat('%' ,concat(#{name},'%'))
+        </if>
+    </where>
+    </select>
+    <insert id="add" parameterType="person">
+        insert into person (id,name,age,professional)values(#{id},#{name},#{age},#{professional})
+    </insert>
+    <update id="update" parameterType="person">
+         update person set name=#{name},age=#{age},professional=#{professional} where id=#{id}
+    </update>
+    <delete id="del" parameterType="Integer">
+        delete from person where id=#{id}
+    </delete>
+</mapper>
